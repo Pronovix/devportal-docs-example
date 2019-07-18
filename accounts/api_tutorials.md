@@ -7,14 +7,14 @@ This tutorial describes how to connect an application to the Account Information
 - For information on test data see Sandbox.
 - For information on the API operations see Technical.
 
-#### Onboarding {#onboarding}
+#### Onboarding
 For access to the sandbox it is not required to be onboarded. For information on how to get access to ABN AMRO accounts in production see Overview.
 
 Account Information uses OAuth as authorization method to get access to an account. Click here for information.
 
 You can follow the step-by-step tutorial below to learn how to access the APIs in sandbox environment and production alike.
 
-#### 1. Obtain Consent {#consent}
+#### 1. Obtain Consent
 
 Request consent by directing our account holder to the following url (through browser or mobile banking app):
 
@@ -54,7 +54,7 @@ In the response, you will get an OAuth code, which needs to be exchanged within 
 https://localhost/auth?code=9C6UrsGZ0Z3XJymRAOAgl7hKPLlWKUo9GBfMQQEs&state=SilverAdministration-123
 ```
 
-#### 2. Exchange oauth code {#exchange-oauth-code}
+#### 2. Exchange oauth code
 
 The authorization code needs to be exchanged for an access token and a refresh token. Below is a CURL example:
 
@@ -94,7 +94,7 @@ For more details you can refer to the OAuth.
 
  **Note:** Store the above refresh token for later use. The access token is valid for 2 hours.
 
-#### 3. Check Access using Consent Info {#check-access-using-consent-info}
+#### 3. Check Access using Consent Info
 
 Now you can check for which account and scopes you received consent. You can check the scopes and account for this access token by calling the consent info API.
 
@@ -264,7 +264,7 @@ curl -X GET -k "https://api-sandbox.abnamro.com/v1/accounts/{NL12ABNA9999876523}
   "available": false
 }
 ```
-#### 5. Refresh Access Token {#refresh_token}
+#### 5. Refresh Access Token
 When your access token expires, you can request a new access token by using the refresh token.  
 
 ##### Sample Request

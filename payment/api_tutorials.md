@@ -8,7 +8,7 @@ On this page you will find a full tutorial, which will help you to connect the a
 - For detailed information on the API operations, please refer to the Technical.
 - For detailed information on the authorization & authentication, please refer to the OAuth and the Authorization page.
 
-#### Onboarding {#onboarding}
+#### Onboarding
 
 Please check Overview on how you can get access to ABN AMRO Payment Initiation API's.
 
@@ -18,7 +18,7 @@ Payment Initiation uses OAuth as authorization method to get access to an accoun
 
 Once onboarding has been completed, you can follow the step-by-step tutorial below to learn how to access the API's in sandbox environment.
 
-#### 1. Access Token for Payment Registration {#access}
+#### 1. Access Token for Payment Registratio
 
 First you need to get an access token so you can register the payment:
 
@@ -56,7 +56,7 @@ For more details you can refer to the OAuth page.
 }
 ```
 
-#### 2. Register Payment {#register-payment}
+#### 2. Register Payment
 
 Now you can register the payment which the account holder can authorize in the next step. You can register a SEPA payment (payment in EUR and inside Monetarian Union) or a crossborder payment (Non EUR payment or EUR payment outside EMU).
 
@@ -173,7 +173,7 @@ curl -X POST -k https://api-sandbox.abnamro.com/v1/payments/xborder \
 
 **Note:** You should store the transactionId since it is later needed for checking the authorization by the accountholder and for executing the authorized payment.
 
-#### 3. Request Consent {#request-consent}
+#### 3. Request Consent
 
 You can request consent by directing our account holder to the following url:
 
@@ -222,7 +222,7 @@ https://localhost/auth?code=9C6UrsGZ0Z3XJymRAOAgl7hKPLlWKUo9GBfMQQEs&state=Payme
 - The access code is valid for only 10 seconds. You need to exchange the access code quickly.
 - When consent is cancelled / not successful, an error is returned (error_description=Unexpected+Runtime+Authn+Adapter+Integration+Problem.&error=server_error#). The registered payment is also cancelled in that case, and cannot be authorized anymore.
 
-#### 4. Exchange Access Code Token {#exchange-access-token}
+#### 4. Exchange Access Code Token
 
 Next the authorization code needs to be exchanged for an access token and a refresh token. Below is a CURL example:
 
@@ -248,7 +248,7 @@ curl -X POST -k https://auth-sandbox.connect.abnamro.com:8443/as/token.oauth2 \
 
 For more details, refer to the OAuth.
 
-##### Sample Response 
+##### Sample Response
 
 ```json
 {
@@ -261,7 +261,7 @@ For more details, refer to the OAuth.
 
 **Note:** Store refresh token for later use (the access token is valid for 2 hours) 
 
-#### 5. Check Authorization using Consent Info {#check-access-using-consent-info}
+#### 5. Check Authorization using Consent Info
 
 For the next step, you need an access token and transactionId to execute the authorized payment. There are two ways to find the transactionId:
 
@@ -299,7 +299,7 @@ Please see [OAuth](/get-started#authentication) for details. Only parameters tha
 
 You can store the transactionId (paymentReference) and payment scopes to execute the payment in the next step and to check status. The initiating account number (IBAN) can be used to link the tranaction to the account of the client (during consent he can change pre-selected initiating account).
 
-#### 6. Execute Payment {#execute-payment}
+#### 6. Execute Payment
 
 Next you can execute the stored payment that was authorized by the account holder in the previous steps.
 
@@ -335,7 +335,7 @@ curl -X PUT -k https://api-sandbox.abnamro.com/v1/payments/xborder/8338L58123047
 
 If you used the state attribute with consent [(in step 3)](#request-consent), you can determine the initiating account number in the response here. For more information you can refer to the Technical.
 
-#### 7. Check Payment Status {#check-payment-status}
+#### 7. Check Payment Status
 
 If the status in the response for executing payment is not "EXECUTED" or "REJECTED" you can check at a later time what the status is using following sample request:
 
@@ -359,9 +359,9 @@ curl -X GET -k https://api-sandbox.abnamro.com/v1/payments/8338L5812304793S0PD \
 }
 ```
 
-#### 8. Refresh Access Token {#refresh-access-token}
+#### 8. Refresh Access Token
 
-When your access token expires you can request a new access token using the refresh token.  
+When your access token expires you can request a new access token using the refresh token.
 
 ##### Sample Request
 

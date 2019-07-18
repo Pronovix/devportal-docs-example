@@ -1,14 +1,14 @@
 ### Overview
 
-#### Introduction {#introduction}
+#### Introduction
 Payment Initiation are a set of API's that can be used by third party payment service providers (TPP) to initiate payments from ABN AMRO accounts. A payment can only be intiated from an account when ABN AMRO's client authorizes this payment through the consent application. Please also check [the PSD2 section](#psd2).
 
 A sandbox environment is available for development and testing. Access to production will be available before June 14th and can be requested if your organization has a PSD2 or banking license.
 
-#### Getting Access {#getting-access}
+#### Getting Access
 > Payment Initiation is available to TPP's. Please check [the PSD2 section](#psd2) for details.
 
-#### Development and Testing {#development-testing}
+#### Development and Testing
 You can start developing now using our documentation.
 
 This is how to get started:
@@ -21,7 +21,7 @@ This is how to get started:
 
 Please let us know what you think about our API's and provide us with [feedback](https://developer.abnamro.com/contact). 
 
-#### Get Access to Production {#production}
+#### Get Access to Production
 > Access to production will be available before June 14th and can be requested if your organization has a PSD2 or banking license. Please check [the PSD2 section](#psd2) for details.
 
 Follow the steps below to get access to production:
@@ -41,7 +41,7 @@ Once we have validated your identity and PSD2 permissions and have received the 
 **5. Go Live**
 After you completed testing of your application we will activate access to production. Our API Services team will help you going live.
 
-#### PSD2 {#psd2}
+#### PSD2
 When you require access as a TPP to ABN AMRO accounts you need a PSD2 license from a local competent authority. In the Netherlands, this is DNB. If you require access to accounts in other countries you need a (passported) license in that country as well. You can get access to ABN AMRO accounts in NL, GB, BE and DE through the Developer Portal. Access to production will be available before June 14th.
 
 Please check the table below for the required license:

@@ -1,7 +1,7 @@
 ### Technical
 Account Information are APIs that can used to retrieve account data like transaction information, the current balance or details of the account itself. These APIs can be part of multiple product offerings. Also, the functionality of the API depends on the product offering.
 
-#### Open API Specification {#open-api-specification}
+#### Open API Specification
 To download the Open API Specification of the Payment Initiation API in YAML format, click here.
 
 #### Payment Initation version 1.0.2
@@ -14,7 +14,7 @@ New in this version:
 
 - Production: https://api.abnamro.com
 
-#### Access token {#access-token}
+#### Access token
 Account Information API uses client authentication and user-based consent OAuth as described here. To use the API, you need to obtain an access token from the Authentication API with the one or more of the following scopes:
 
 | Operation  | Scope  |  Description |
@@ -24,7 +24,7 @@ Account Information API uses client authentication and user-based consent OAuth 
 | Transactions | psd2:account:transaction:read | To get transactions of the account. Get this scope through consent from the account holder |
 | Funds | psd2:account:funds:read | To request if sufficient funds are available for amount. Get this scope through consent from the account holder |
 
-#### GET details {#get-details}
+#### GET details
 >GET /v1/accounts/{accountNumber}/details
 
 This operation allows you to retrieve the details of the account, like currency and account holder name.
@@ -46,8 +46,7 @@ This operation allows you to retrieve the details of the account, like currency 
 | currency          | String | Body   | true  | Currency of the account, 3 characters ISO 4217 currency code (e.g. EUR or USD) |
 | accountHolderName | String | Body   | true  | Name of the account holder for consumers or trade name for commercial clients|
 
-#### GET balances {#get-balances}
-
+#### GET balances
 >GET /v1/accounts/{accountNumber}/balances
 
 This operation allows you to retrieve the details of the account, like book balance of the account and currency.
@@ -69,7 +68,7 @@ This operation allows you to retrieve the details of the account, like book bala
 | currency     | String | Body   | true | Currency of the account, 3 characters ISO 4217 currency code (e.g. EUR or USD) |
 | amount       | Number | Body   | true | Balance of the account which can be negative when there is a debit balance |
 
-#### GET transactions {#get-transactions}
+#### GET transactions
 
 >GET /v1/accounts/{accountNumber}/transactions
 
@@ -108,7 +107,7 @@ Filtering for specific bookdates can be done using from and to date. The history
 | accountNumber        | String | Body         | true  | IBAN of the request for which the transactions were retrieved |
 | nextPageKey          | String | Body         | false | Reference key of the last retrieved transaction that can be used as query parameter in the next call to fetch the next set of transactions. This key is only provided if more than 50 transactions are present |
 
-#### GET funds {#get-funds}
+#### GET funds
 
 >GET /v1/accounts/{accountNumber}/funds
 
@@ -159,7 +158,7 @@ The usecase of Consent Info is depicted in the following sequence diagram.
 
 **Note:** You can store the iban, transactionId and scopes for your own adminstration and for access to the API.
 
-#### Error Response & Codes {#error-response-code}
+#### Error Response & Codes
 This section describes the error response & the codes being sent by the API.
 
 ##### Error Response Attributes

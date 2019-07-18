@@ -1,11 +1,11 @@
 ### Overview
 
-#### Introduction {#introduction}
+#### Introduction
 Account Information are a set of APIs can be used by third party payment service providers (TPP) to retrieve information for ABN AMRO accounts. Account information can only be accessed when the ABN AMRO account holder authorizes this access through the consent application. For more information see the [PSD2 section](#psd2).
 
 A sandbox environment is available for development and testing. Access to production can be requested if your organization has a PSD2 or banking license.
 
-#### Get started {#get-started}
+#### Get started
 To get started:
 
 1. Register and create an account on the Developer Portal
@@ -16,7 +16,7 @@ To get started:
 
 Let us know what you think about our API's and provide us with [feedback](https://developer.abnamro.com/contact). 
 
-#### Get Access to Production {#production}
+#### Get Access to Production
 > Access to production can be requested if your organization has a PSD2 or banking license. For more information check the [PSD2 section](#psd2)
 
 Follow these steps to get access to production:
@@ -35,7 +35,7 @@ When we have validated the technical setup form and EIDAS certificate we will st
 **4. Go Live**
 The API Services team will provide you with details for production access.
 
-#### PSD2 {#psd2}
+#### PSD2
 If you require access as a TPP to ABN AMRO accounts you must have a PSD2 license from a local competent authority. In the Netherlands, this is De Nederlandsche Bank (DNB). If you require access to accounts in other countries you must have a license in that country as well. You can get access to ABN AMRO accounts in NL, GB, BE, and DE through the Developer Portal.
 
 **Licensing requirements**

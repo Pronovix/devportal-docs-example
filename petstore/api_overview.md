@@ -2,6 +2,7 @@
 In computer programming, an application programming interface (API) is a set of subroutine definitions, communication protocols, and tools for building software.
 In general terms, it is a set of clearly defined methods of communication among various components.
 A good API makes it easier to develop a computer program by providing all the building blocks, which are then put together by the programmer.
+
 ## Libraries and frameworks
 A single API can have multiple implementations (or none, being abstract) in the form of different libraries that share the same programming interface.
 The separation of the API from its implementation can allow programs written in one language to use a library written in another.

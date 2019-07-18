@@ -8,7 +8,7 @@ Payment Initiation API's can be used to send payment orders for a current accoun
 * Updated documentation for Sandbox
 * Minor improvements
 
-#### Open API Specification {#open-api-specification}
+#### Open API Specification
 
 Click here to download the Open API Specification of the Payment Initiation API in yaml format.
 
@@ -20,7 +20,7 @@ https://api-sandbox.abnamro.com
 Production:
 https://api.abnamro.com
 
-#### Access Token {#access-token}
+#### Access Token
 
 Payment Initiation API uses client authentication OAuth for registring payments as described here. To use the API, you need to obtain an access token from the Authentication API with the one or more of the following scopes:
 
@@ -39,7 +39,7 @@ Payment Initiation API uses client authentication OAuth for registring payments 
 | POST Payments | psd2:payment:xborder:write | To register a xborder payment for authorization by the accountholder. You can get this scope through client credentials |
 | PUT Payments | psd2:payment:xborder:write | To release xborder payment after authorization by the accountholder. You get this scope through consent from the account holder |
 
-#### POST Payments {#post-payments}
+#### POST Payments
 
 >POST v1/payments
 
@@ -73,7 +73,7 @@ This operation will register a SEPA payment at the bank for further authorizatio
 | transactionId | String | Body   | true  | Unique id generated for the registered payment. Is required input for PUT Payments |
 | status        | String | Body   | false |  The current status of the payment which is STORED after successful registration |
 
-#### PUT Payments {#put-payments}
+#### PUT Payments
 
 >PUT /v1/payments/{transactionId}
 
@@ -97,7 +97,7 @@ This operation will execute an authorized and registered SEPA payment at the ban
 | status        | String | Body   | false | The current status of the payment which is IN PROGRESS, SCHEDULED, EXECUTED or REJECTED after successful execution (PUT) |
 
 
-#### GET Payments {#get-payments}
+#### GET Payments
 
 >GET /v1/payments/{transactionId}
 
@@ -132,7 +132,7 @@ This operation will retrieve the current status of a payment.
 | REJECTED | Payment is rejected. This can be for example because of invalid beneficiary IBAN, insufficient funds or account restrictions |
 | UNKNOWN | Status cannot be retrieved. Try later again |
 
-#### POST payments/xborder {#post-payments-xborder}
+#### POST payments/xborder
 
 >POST /v1/payments/xborder
 
@@ -170,7 +170,7 @@ This operation will register a non-SEPA payment at the bank for further authoriz
 | transactionId | String | Body   | true  | Unique id generated for the registered payment |
 | status        | String | Body   | false | The current status of the payment which is STORED after successful registration |
 
-#### PUT payments/xborder {#put-payments-xborder}
+#### PUT payments/xborder
 
 >PUT /v1/payments/xborder/{transactionId}
 
@@ -193,7 +193,7 @@ This operation will execute an authorized and registered non-SEPA payment at the
 | transactionId | String | Body   | true  | Unique id generated for the registered payment |
 | status        | String | Body   | false | The current status of the payment which is IN PROGRESS, SCHEDULED, EXECUTED or REJECTED after successful execution (PUT) |
 
-#### Error Response & Codes {#error-response-code}
+#### Error Response & Codes
 
 This section describes the error response & the codes being sent by the API.
 
@@ -258,7 +258,7 @@ This section lists the errors that are specific for this API. If your error is n
 | 404 | MESSAGE_BAI561_0030	| No payment details found |
 | 5xx | MESSAGE_xxxxxxxxxxx | For any 500 error please contact the bank |
 
-#### Characterset {#characterset}
+#### Characterset
 
 For SEPA payments and crossborder payments the characterset in the table below can be used. 
 
