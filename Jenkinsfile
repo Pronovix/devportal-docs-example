@@ -9,11 +9,11 @@ pipeline {
         stage('Check') {
             when { branch 'master' }
             steps {
-                sh 'docker run --rm -v `pwd`:/srv/test testthedocs/linkcheck-md'
+                sh 'docker run --rm -v `pwd`:/srv/tests testthedocs/vale-demo:0.0.7'
             }
         }
         stage('Upload') {
-            when { branch 'master'  }
+            when { branch 'master' }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'devportal', usernameVariable: 'BASE_URL', passwordVariable: 'TOKEN')]) {
                     sh """
@@ -22,7 +22,7 @@ pipeline {
                                 $curl -H "X-Project-Id: \$i" -H "Content-Type: text/yaml" --data-binary @\$j ${BASE_URL}/dp-trigger/${TOKEN}
                             done
                             for j in `find \$i -name '*.md'`; do 
-                                 $curl -H "X-Project-Id: \$i" --data-binary @\$j ${BASE_URL}/dp-trigger/${TOKEN}/field_`basename \$j .md`
+                                $curl -H "X-Project-Id: \$i" --data-binary @\$j ${BASE_URL}/dp-trigger/${TOKEN}/field_`basename \$j .md`
                             done
                         done
                     """
