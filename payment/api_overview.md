@@ -13,11 +13,11 @@ You can start developing now using our documentation.
 
 This is how to get started:
 
-- [Register](/user/register) and create an account on the Developer Portal 
-- [Login](/user/login)
-- [Create an app](/user/me/apps), subscribe to the Payment Initiation API Product and get API credentials
-- Check [Authorization](authorization) on how to get access tokens
-- Start developing using the [Sandbox](sandbox), [Technical](technical) and [Tutorials](tutorials) sections
+- Register and create an account on the Developer Portal 
+- Login
+- Create an app, subscribe to the Payment Initiation API Product and get API credentials
+- Check Authorization on how to get access tokens
+- Start developing using the Sandbox, Technical and Tutorials sections
 
 Please let us know what you think about our API's and provide us with [feedback](https://developer.abnamro.com/contact). 
 
@@ -27,7 +27,7 @@ Please let us know what you think about our API's and provide us with [feedback]
 Follow the steps below to get access to production:
 
 **1. Contact us**
-You can request access to PSD2 API's using the [Contact us](/contact) form. Our API services team will contact you to discuss details of your request. They will ask you to provide information that will help us to determine your identity and authorizations for PSD2 access.
+You can request access to PSD2 API's using the Contact us form. Our API services team will contact you to discuss details of your request. They will ask you to provide information that will help us to determine your identity and authorizations for PSD2 access.
 
 **2. Request a certificate**  
 To get access to our API’s an EIDAS SSL certificate is required. 

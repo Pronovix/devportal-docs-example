@@ -1,8 +1,8 @@
 ### Technical
-Account Information are APIs that can used to retrieve account data like transaction information, the current balance or details of the account itself. These APIs can be part of multiple product offerings. Also, the functionality of the API depends on the [product offering](/content/account-information).
+Account Information are APIs that can used to retrieve account data like transaction information, the current balance or details of the account itself. These APIs can be part of multiple product offerings. Also, the functionality of the API depends on the product offering.
 
 #### Open API Specification {#open-api-specification}
-To download the Open API Specification of the Payment Initiation API in YAML format, click [here](/system/files/documents/accounts-v1.yaml).
+To download the Open API Specification of the Payment Initiation API in YAML format, click here.
 
 #### Payment Initation version 1.0.2
 New in this version:
@@ -15,7 +15,7 @@ New in this version:
 - Production: https://api.abnamro.com
 
 #### Access token {#access-token}
-Account Information API uses client authentication and user-based consent OAuth as described [here](/get-started#authentication). To use the API, you need to obtain an access token from the Authentication API with the one or more of the following scopes:
+Account Information API uses client authentication and user-based consent OAuth as described here. To use the API, you need to obtain an access token from the Authentication API with the one or more of the following scopes:
 
 | Operation  | Scope  |  Description |
 | ----- | ----- | ----- |
@@ -170,10 +170,10 @@ This section describes the error response & the codes being sent by the API.
 | reference | String | Body | true | Reference where to find more information on error |
 | Trace-Id | String  | Body | true | Unique id generated for every request |
 | status | String | Body | true | https error code, 4xx or 5xx |
-| category | String | Body | true | Category of error. Values: BAD_REQUEST, FORBIDDEN, INTERNAL_SERVER_ERROR, BACKEND_ERROR, more generic categories can be found on the [Get Started](/get-started#error-handling) page under the section Error Codes |
+| category | String | Body | true | Category of error. Values: BAD_REQUEST, FORBIDDEN, INTERNAL_SERVER_ERROR, BACKEND_ERROR, more generic categories can be found on the Get Started page under the section Error Codes |
 
 ##### Error codes
-This section lists the errors that are particular for this API. If your error is not listed here, or you want to know which general errors can occur, you can check on the [Get Started](/get-started#error-handling) page under the section Error Codes.
+This section lists the errors that are particular for this API. If your error is not listed here, or you want to know which general errors can occur, you can check on the Get Started page under the section Error Codes.
 
 | HTTP status code | Error Code | Error Description |
 | ---------------- | --------------- | ---------------------- |

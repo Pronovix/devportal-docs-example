@@ -20,7 +20,7 @@ Before consent can be requested, first a payment instruction needs to be registe
 As a result of this consent an "authorization code" is provided. For security reasons this code is short-lived and needs to be exchanged for a long-lived "refresh token" and a short-lived "access token". This "access token" can be used to get access to the API's (e.g. release the stored payment for processing).
 The long lived refresh token can be used for future account access, see the section "refresh acces code token" for details.  The sequence diagram below depicts this flow.
 
-For details on how to access the OAuth server, please check [OAuth](/get-started#authentication) or the [Tutorials](tutorials).
+For details on how to access the OAuth server, please check OAuth or the Tutorials.
 
 #### Consent Application {#consent-app}
 The consent application is used in the [authorization code flow](#authorization-code) to provide you with an access code. In this application the ABN AMRO client can give consent for access to their account, by using for example their E.dentifier.  This is a so-called redirect. In the consent application, the ABN AMRO client can review the details payment that was registered by you and authorize this payment. The ABN AMRO client can either authorize or cancel the requested authorization (requested scopes).
@@ -35,18 +35,18 @@ All payment initiation consents are valid for 90 days. Consent can be given usin
 
 **Note:**
 
-- The scopes for Payment Initiation cannot be combined with scopes for Account Information. See [Technical](technical).
+- The scopes for Payment Initiation cannot be combined with scopes for Account Information. See Technical.
 
-- For details on how to access the consent application through the OAuth server, please check [OAuth](/get-started#authentication) or the [Tutorials](tutorials).
+- For details on how to access the consent application through the OAuth server, please check OAuth or the Tutorials.
 
 - The ABN AMRO client can select an account number that is different from the account number in the registered payment.
 
 #### Refresh an Access Token {#refresh-access-token}
 When the short lived access token has expired, the long lived "refresh token" can be used to get a new access token and a new refresh token, rendering the used refresh token as invalid. The sequence diagram below depicts this flow.
 
-For details on how to access the OAuth server, please check [OAuth](/get-started#authentication) or the [Tutorials](tutorials).
+For details on how to access the OAuth server, please check OAuth or the Tutorials.
 
 #### Consent Info API {#consent-info-api}
 With this method you can retrieve the details (transactionId, initiating accountnumber and scopes) of consent that are associated with given "access token".
 
-**Note:** For details on how to access the Consent info API, please check [Technical](technical) or the [Tutorials](tutorials).
+**Note:** For details on how to access the Consent info API, please check Technical or the Tutorials.

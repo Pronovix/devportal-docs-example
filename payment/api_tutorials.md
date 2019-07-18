@@ -4,17 +4,17 @@ On this page you will find a full tutorial, which will help you to connect the a
 
 **Note:**
 
-- Check the section on [Sandbox](sandbox), where you can find test data and flows.
-- For detailed information on the API operations, please refer to the [Technical](technical).
-- For detailed information on the authorization & authentication, please refer to the [OAuth](/get-started#authentication) and [the Authorization](authorization) page.
+- Check the section on Sandbox, where you can find test data and flows.
+- For detailed information on the API operations, please refer to the Technical.
+- For detailed information on the authorization & authentication, please refer to the OAuth and the Authorization page.
 
 #### Onboarding {#onboarding}
 
-Please check [Overview](overview) on how you can get access to ABN AMRO Payment Initiation API's.
+Please check Overview on how you can get access to ABN AMRO Payment Initiation API's.
 
 **Note:** Before starting development, please note you need a PSD2 license to get access to accounts in production.
 
-Payment Initiation uses OAuth as authorization method to get access to an account. Click [here](authorization) for more information on how to authenticate.
+Payment Initiation uses OAuth as authorization method to get access to an account. Click here for more information on how to authenticate.
 
 Once onboarding has been completed, you can follow the step-by-step tutorial below to learn how to access the API's in sandbox environment.
 
@@ -44,7 +44,7 @@ curl -X POST -k https://auth-sandbox.connect.abnamro.com:8443/as/token.oauth2 \
 
 -k is used in sandbox to overrule certificate check because a self-signed certificate is used.
 
-For more details you can refer to the [OAuth page](/get-started#authentication).
+For more details you can refer to the OAuth page.
 
 ##### Sample Response
 
@@ -112,7 +112,7 @@ curl -X POST -k https://api-sandbox.abnamro.com/v1/payments  \
 | issuer                       | 3 types of issuers for structured remittance information are supported. CUR for Dutch payment reference, BBA for Belgium payment reference and ISO for ISO payment reference | 
 | reference                    | The structured remittance information |
 
-Only the attributes that require some additional explanation are mentioned. You can check the other attributes in [Technical](technical#post-payments). 
+Only the attributes that require some additional explanation are mentioned. You can check the other attributes in Technical. 
 
 ##### Sample Response
 ```json
@@ -188,13 +188,13 @@ https://auth-sandbox.connect.abnamro.com/as/authorization.oauth2?scope=psd2:paym
 https://auth-sandbox.connect.abnamro.com/as/authorization.oauth2?scope=psd2:payment:xborder:write&client_id=TPP_test&transactionId=123&response_type=code&flow=code&redirect_uri=https://localhost/auth&bank=NLAA01&state=Paymentreference123
 ```
 
-Any of these examples will start the consent application. In the consent flow the account holder can select for which account they want to give consent. ([see sandbox for details](sandbox)).
+Any of these examples will start the consent application. In the consent flow the account holder can select for which account they want to give consent. see sandbox for details.
 
 ##### Request Attributes
 
 | Attribute | Description |
 | --------- | ----------- |
-| scope | The scope attribute is used for which scopes access is needed. This can be more than one scope. [See Technical](technical#access-token) Use the value psd2:payment:sepa:write for releasing a registered SEPA payment and psd2:payment:sepa:read for checking status |
+| scope | The scope attribute is used for which scopes access is needed. This can be more than one scope. See Technical Use the value psd2:payment:sepa:write for releasing a registered SEPA payment and psd2:payment:sepa:read for checking status |
 | client_id | In the sandbox environment you can use TPP_test as client_id. The sandbox will be available in February/March. In production you will receive a client_id from ABN AMRO |
 | transactionId | Unique id that was generated during the registration of a payment |
 | redirect_uri | In production, it needs to be identical to url that was administered. In sandbox, you can choose any url, including local host. | 
@@ -207,7 +207,7 @@ Any of these examples will start the consent application. In the consent flow th
 | BEPB01 | Consent for ABN AMRO Belgium Private Banking accounts |
 | BEPB02 | Consent for ABN AMRO Belgium Independent Asset Manager accounts |
 
-For more details you can refer to the [OAuth page](/get-started#authentication).
+For more details you can refer to the OAuth page.
 
 In the response, you will get an OAuth code, which needs to be exchanged within 10 seconds for an Access token and refresh token in [step 4](#exchange-access-token).
 
@@ -246,7 +246,7 @@ curl -X POST -k https://auth-sandbox.connect.abnamro.com:8443/as/token.oauth2 \
 | code | The authorization code from the previous step |
 | redirect_uri | Is mandatory When redirect_uri was used for requesting consent |
 
-For more details, refer to the [OAuth](/get-started#authentication).
+For more details, refer to the OAuth.
 
 ##### Sample Response 
 
@@ -333,7 +333,7 @@ curl -X PUT -k https://api-sandbox.abnamro.com/v1/payments/xborder/8338L58123047
 }
 ```
 
-If you used the state attribute with consent [(in step 3)](#request-consent), you can determine the initiating account number in the response here. For more information you can refer to the [Technical](technical).
+If you used the state attribute with consent [(in step 3)](#request-consent), you can determine the initiating account number in the response here. For more information you can refer to the Technical.
 
 #### 7. Check Payment Status {#check-payment-status}
 

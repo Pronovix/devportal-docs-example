@@ -4,13 +4,13 @@ This tutorial describes how to connect an application to the Account Information
 **Important:** You must have a PSD2 license to access production accounts.
 
 **Notes:**
-- For information on test data see [Sandbox](sandbox).
-- For information on the API operations see [Technical](technical).
+- For information on test data see Sandbox.
+- For information on the API operations see Technical.
 
 #### Onboarding {#onboarding}
-For access to the sandbox it is not required to be onboarded. For information on how to get access to ABN AMRO accounts in production see [Overview](overview).
+For access to the sandbox it is not required to be onboarded. For information on how to get access to ABN AMRO accounts in production see Overview.
 
-Account Information uses OAuth as authorization method to get access to an account. Click [here](authorization) for information.
+Account Information uses OAuth as authorization method to get access to an account. Click here for information.
 
 You can follow the step-by-step tutorial below to learn how to access the APIs in sandbox environment and production alike.
 
@@ -44,7 +44,7 @@ This will start the consent application. In the consent process, the account hol
 | BEPB01 | Consent for an ABN AMRO Belgium Private Banking accounts |
 | BEPB02 | Consent for an ABN AMRO Belgium Independent Asset Manager accounts |
 
-For more information, see [OAuth](/get-started#authentication).
+For more information, see OAuth.
 
 In the response, you will get an OAuth code, which needs to be exchanged within 60 seconds for an Access token and refresh token in step 2.
 
@@ -80,7 +80,7 @@ curl -X POST -k https://auth-sandbox.connect.abnamro.com:8443/as/token.oauth2 \
 
 -k is used in sandbox to overrule certificate check because a self-signed certificate is used.
 
-For more details you can refer to the [OAuth](/get-started#authentication).
+For more details you can refer to the OAuth.
 
 ##### Sample Response
 ```json
@@ -113,7 +113,7 @@ curl -X GET -k https://api-sandbox.abnamro.com/v1/consentinfo \
 | --------- | ----------- |
 | authorization | The access token from step 2 for which you want to check the consent info |
 
-For more details you can refer to the [OAuth](/get-started#authentication).
+For more details you can refer to the OAuth.
 
 ##### Sample Response
 ```json

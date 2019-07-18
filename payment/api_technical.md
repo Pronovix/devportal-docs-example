@@ -1,6 +1,6 @@
 ### Technical
 
-Payment Initiation API's can be used to send payment orders for a current account and check their processing status. These API's can be part of multiple product offerings. Also, the functionality of the API depends on the [product offering](/content/payment-initiation).
+Payment Initiation API's can be used to send payment orders for a current account and check their processing status. These API's can be part of multiple product offerings. Also, the functionality of the API depends on the product offering.
 
 #### Updated in v1.01
 * Sandbox now live
@@ -10,7 +10,7 @@ Payment Initiation API's can be used to send payment orders for a current accoun
 
 #### Open API Specification {#open-api-specification}
 
-Click [here](/system/files/documents/payments-v1.yaml) to download the Open API Specification of the Payment Initiation API in yaml format.
+Click here to download the Open API Specification of the Payment Initiation API in yaml format.
 
 #### Environments
 
@@ -22,7 +22,7 @@ https://api.abnamro.com
 
 #### Access Token {#access-token}
 
-Payment Initiation API uses client authentication OAuth for registring payments as described [here](/get-started#authentication). To use the API, you need to obtain an access token from the Authentication API with the one or more of the following scopes:
+Payment Initiation API uses client authentication OAuth for registring payments as described here. To use the API, you need to obtain an access token from the Authentication API with the one or more of the following scopes:
 
 ##### SEPA Scopes
 
@@ -206,11 +206,11 @@ This section describes the error response & the codes being sent by the API.
 | reference | String | Body | true | Reference where to find more information on error |
 | Trace-Id      | String  | Body | true | Unique id generated for every request |
 | status | String | Body | true | https error code, 4xx or 5xx |
-| category | String | Body | true | Category of error. Values: BAD_REQUEST, FORBIDDEN, INTERNAL_SERVER_ERROR, BACKEND_ERROR, more generic categories can be found on the [Get Started](/get-started#error-handling) page under the section Error Codes. |
+| category | String | Body | true | Category of error. Values: BAD_REQUEST, FORBIDDEN, INTERNAL_SERVER_ERROR, BACKEND_ERROR, more generic categories can be found on the Get Started page under the section Error Codes. |
 
 ##### Error Codes
 
-This section lists the errors that are specific for this API. If your error is not listed here, or you want to know which general errors can occur, you can check on the [Get Started](/get-started#error-handling) page under the section Error Codes.
+This section lists the errors that are specific for this API. If your error is not listed here, or you want to know which general errors can occur, you can check on the Get Started page under the section Error Codes.
 
 | HTTP status code | Error Code | Error Description |
 | ---------------- | ---------- | ----------------- |
