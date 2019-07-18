@@ -1,0 +1,696 @@
+swagger: "2.0"
+info:
+  version: 2.0.7
+  title: Payment Initation
+  description: "The Payment Initation API is used to send a payment orders and check their processing status.
+  
+  The API can be used by licensed third party service providers to access ABN AMRO accounts. An account can only be accessed when ABN AMRO's account holder authorizes this through the consent application.
+  
+  Please note that the sandbox environment will be available in Februari."
+host: "api-sandbox.abnamro.com" 
+basePath: /v1/payments
+schemes:
+  - https
+externalDocs:
+  description: Find more info about the Payments API here
+  url: "https://developer.abnamro.com/api/payment-initiation-v1/payment-initiation-documentation"
+paths:
+  "/":
+    post:
+      description: "This operation will register a SEPA payment at the bank for further authorization by the account holder through the consent application. The access token from the consent can be used in PUT payments to execute the registered payment."
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: "Access token (with PSD2 scope) to be passed as a Bearer token." 
+          required: true
+          type: string
+        - name: API-Key
+          in: header
+          description: Consumer key obtained after app registration on developer portal.
+          required: true
+          type: string          
+        - name: SepaPayment
+          in: body
+          schema: 
+            $ref: "#/definitions/SepaPayment"
+            
+      responses:
+        "201":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/TransactionStatusResponse"
+        "400":
+          description: Bad request/parameter error
+          examples:
+            applications/json: {"errors": [ {
+              "code" : "ERR_1100_004", 
+              "message" : "One of the input paramater is invalid.",
+              "reference" : "https://developer.abnamro.com/get-started#authentication", 
+              "traceId" : "5d47e7b5-55b8-4b9f-b438-51ed01f92f3a",
+              "status" : 400, "category" : "BAD_REQUEST"}]}          
+          schema:
+            $ref: "#/definitions/Message"
+        "401":
+          description: Unauthorised
+          examples: 
+            applications/json: {"errors": [ {
+             "code" : "ERR_2002_002", 
+             "message" : "The presented access token is not valid or expired.",
+             "reference" : "https://developer.abnamro.com/get-started#authentication",
+             "traceId" : "36fa4309-fd51-4e6c-b8bc-9e1843b47cf8", 
+             "status" : 401, 
+             "category" : "INVALID_ACCESS_TOKEN"}]}
+          schema:
+            $ref: "#/definitions/Message"             
+        "403":
+          description: Access Forbidden
+          examples: 
+            applications/json: {"errors": [ {"code" : "ERR_3002_003",
+             "message" : "Insufficient scope of the token",
+             "reference" : "https://developer.abnamro.com/api/account-information/technical-details",
+             "traceId" : "c8e372a2-5968-446c-8562-d432cf5722b1",
+             "status" : 403, 
+             "category" : "INSUFFICIENT_SCOPE"}]}
+          schema:
+            $ref: "#/definitions/Message"
+        "404":
+          description: Not found (account number not found)
+          examples: 
+            applications/json: {"errors": [ {"code": "ERR_4001_001",
+            "message": "The requested resource was not found, or a disallowed method was used.",
+            "reference": "https://developer.abnamro.com/overview",
+            "traceId": "aa79f41e-ba03-4089-abf0-6113fddc924f",
+            "status": 404,
+            "category": "NOT_FOUND"}]}
+          schema:
+            $ref: "#/definitions/Message"
+        "500":
+          description: Internal Server Error
+          examples: 
+            applications/json: {"errors": [ {
+             "code": "MESSAGE_BAI560_0005",
+             "message": "A technical error has occurred. Please try again later. Please report the following code when contacting us: MESSAGE_BAI560_0005",
+             "reference": "https://developer.abnamro.com/api/account-information/technical-details",
+             "traceId": "114b1652-e499-45b4-8328-0dc41fb266f5",
+             "status": 500,
+             "category": "BACKEND_ERROR"}]}
+          schema:
+            $ref: "#/definitions/Message" 
+      security:
+           - PSD2_Oauth_ClientCredentials: 
+              - psd2:payment:sepa:write
+
+  "/{transactionId}":
+    put:
+      description: "This operation will release an authorized and registered SEPA payment at the bank. Authorization by the account holder is needed through consent to obtain a access token. The TransactionId is received as response of the POST Payments."
+      produces:
+        - application/json
+      parameters:
+        - name: transactionId
+          in: path
+          description: "Transaction id (returned in response from POST) for which the status is to be retrieved"
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token to be passed as a Bearer token.
+          required: true
+          type: string
+        - name: API-Key
+          in: header
+          description: Consumer key obtained after app registration on developer portal.
+          required: true
+          type: string 
+
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/TransactionStatusResponse"
+        "400":
+          description: Bad request/parameter error
+          examples:
+            applications/json: {"errors": [ {
+              "code" : "ERR_1100_004", 
+              "message" : "One of the input paramater is invalid.",
+              "reference" : "https://developer.abnamro.com/get-started#authentication", 
+              "traceId" : "5d47e7b5-55b8-4b9f-b438-51ed01f92f3a",
+              "status" : 400, "category" : "BAD_REQUEST"}]}
+          schema:
+            $ref: "#/definitions/Message"
+        "401":
+          description: Unauthorised
+          examples: 
+            applications/json: {"errors": [ {
+             "code" : "ERR_2002_002", 
+             "message" : "The presented access token is not valid or expired.",
+             "reference" : "https://developer.abnamro.com/get-started#authentication",
+             "traceId" : "36fa4309-fd51-4e6c-b8bc-9e1843b47cf8", 
+             "status" : 401, 
+             "category" : "INVALID_ACCESS_TOKEN"}]}
+          schema:
+            $ref: "#/definitions/Message"             
+        "403":
+          description: Access Forbidden
+          examples: 
+            applications/json: {"errors": [ {"code" : "ERR_3002_003",
+             "message" : "Insufficient scope of the token",
+             "reference" : "https://developer.abnamro.com/api/account-information/technical-details",
+             "traceId" : "c8e372a2-5968-446c-8562-d432cf5722b1",
+             "status" : 403, 
+             "category" : "INSUFFICIENT_SCOPE"}]}
+          schema:
+            $ref: "#/definitions/Message"
+        "404":
+          description: Not found (account number not found)
+          examples: 
+            applications/json: {"errors": [ {"code": "ERR_4001_001",
+            "message": "The requested resource was not found, or a disallowed method was used.",
+            "reference": "https://developer.abnamro.com/overview",
+            "traceId": "aa79f41e-ba03-4089-abf0-6113fddc924f",
+            "status": 404,
+            "category": "NOT_FOUND"}]}
+          schema:
+            $ref: "#/definitions/Message"
+        "500":
+          description: Internal Server Error
+          examples: 
+            applications/json: {"errors": [ {
+             "code": "MESSAGE_BAI560_0005",
+             "message": "A technical error has occurred. Please try again later. Please report the following code when contacting us: MESSAGE_BAI560_0005",
+             "reference": "https://developer.abnamro.com/api/account-information/technical-details",
+             "traceId": "114b1652-e499-45b4-8328-0dc41fb266f5",
+             "status": 500,
+             "category": "BACKEND_ERROR"}]}
+          schema:
+            $ref: "#/definitions/Message" 
+
+      security:
+           - PSD2_Oauth_AuthorizationCode: 
+              - psd2:payment:sepa:write  
+
+    get:
+      description: "This operation will retrieve the current status of a payment."
+      produces:
+        - application/json
+      parameters:
+        - name: transactionId
+          in: path
+          description: "Transaction id (returned in response from POST) for which the status is to be retrieved"
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token to be passed as a Bearer token. 
+          required: true
+          type: string
+        - name: API-Key
+          in: header
+          description: Consumer key obtained after app registration on developer portal.
+          required: true
+          type: string 
+
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/TransactionStatusResponse"
+        "400":
+          description: Bad request/parameter error
+          examples:
+            applications/json: {"errors": [ {
+              "code" : "ERR_1100_004", 
+              "message" : "One of the input paramater is invalid.",
+              "reference" : "https://developer.abnamro.com/get-started#authentication", 
+              "traceId" : "5d47e7b5-55b8-4b9f-b438-51ed01f92f3a",
+              "status" : 400, "category" : "BAD_REQUEST"}]}
+          schema:
+            $ref: "#/definitions/Message"
+        "401":
+          description: Unauthorised
+          examples: 
+            applications/json: {"errors": [ {
+             "code" : "ERR_2002_002", 
+             "message" : "The presented access token is not valid or expired.",
+             "reference" : "https://developer.abnamro.com/get-started#authentication",
+             "traceId" : "36fa4309-fd51-4e6c-b8bc-9e1843b47cf8", 
+             "status" : 401, 
+             "category" : "INVALID_ACCESS_TOKEN"}]}
+          schema:
+            $ref: "#/definitions/Message" 
+        "403":
+          description: Access Forbidden
+          examples: 
+            applications/json: {"errors": [ {"code" : "ERR_3002_003",
+             "message" : "Insufficient scope of the token",
+             "reference" : "https://developer.abnamro.com/api/account-information/technical-details",
+             "traceId" : "c8e372a2-5968-446c-8562-d432cf5722b1",
+             "status" : 403, 
+             "category" : "INSUFFICIENT_SCOPE"}]}
+          schema:
+            $ref: "#/definitions/Message"
+        "404":
+          description: Not found (account number not found)
+          examples: 
+            applications/json: {"errors": [ {"code": "ERR_4001_001",
+            "message": "The requested resource was not found, or a disallowed method was used.",
+            "reference": "https://developer.abnamro.com/overview",
+            "traceId": "aa79f41e-ba03-4089-abf0-6113fddc924f",
+            "status": 404,
+            "category": "NOT_FOUND"}]}
+          schema:
+            $ref: "#/definitions/Message"
+        "500":
+          description: Internal Server Error
+          examples: 
+            applications/json: {"errors": [ {
+             "code": "MESSAGE_BAI560_0005",
+             "message": "A technical error has occurred. Please try again later. Please report the following code when contacting us: MESSAGE_BAI560_0005",
+             "reference": "https://developer.abnamro.com/api/account-information/technical-details",
+             "traceId": "114b1652-e499-45b4-8328-0dc41fb266f5",
+             "status": 500,
+             "category": "BACKEND_ERROR"}]}
+          schema:
+            $ref: "#/definitions/Message" 
+      security:
+           - PSD2_Oauth_AuthorizationCode: 
+              - psd2:payment:sepa:read  
+
+  "/xborder":
+    post:
+      description: "This operation will register a non-SEPA payment at the bank for further authorization by the account holder through the consent application. The access token from the consent can be used in PUT payments to execute the registered payment. Due to the nature of international interbank communication formats, these type of payments are subject to SWIFT characterset limitations and possible truncation of fields."
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: Access token to be passed as a Bearer token. 
+          required: true
+          type: string
+        - name: API-Key
+          in: header
+          description: Consumer key obtained after app registration on developer portal.
+          required: true
+          type: string 
+        - name: XBorderPayment
+          in: body
+          schema: 
+            $ref: "#/definitions/XBorderPayment"
+            
+      responses:
+        "201":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/TransactionStatusResponse"
+        "400":
+          description: Bad request/parameter error
+          examples:
+            applications/json: {"errors": [ {
+              "code" : "ERR_1100_004", 
+              "message" : "One of the input paramater is invalid.",
+              "reference" : "https://developer.abnamro.com/get-started#authentication", 
+              "traceId" : "5d47e7b5-55b8-4b9f-b438-51ed01f92f3a",
+              "status" : 400, "category" : "BAD_REQUEST"}]}
+          schema:
+            $ref: "#/definitions/Message"
+        "401":
+          description: Unauthorised
+          examples: 
+            applications/json: {"errors": [ {
+             "code" : "ERR_2002_002", 
+             "message" : "The presented access token is not valid or expired.",
+             "reference" : "https://developer.abnamro.com/get-started#authentication",
+             "traceId" : "36fa4309-fd51-4e6c-b8bc-9e1843b47cf8", 
+             "status" : 401, 
+             "category" : "INVALID_ACCESS_TOKEN"}]}
+          schema:
+            $ref: "#/definitions/Message" 
+        "403":
+          description: Access Forbidden
+          examples: 
+            applications/json: {"errors": [ {"code" : "ERR_3002_003",
+             "message" : "Insufficient scope of the token",
+             "reference" : "https://developer.abnamro.com/api/account-information/technical-details",
+             "traceId" : "c8e372a2-5968-446c-8562-d432cf5722b1",
+             "status" : 403, 
+             "category" : "INSUFFICIENT_SCOPE"}]}
+          schema:
+            $ref: "#/definitions/Message"
+        "404":
+          description: Not found (account number not found)
+          examples: 
+            applications/json: {"errors": [ {"code": "ERR_4001_001",
+            "message": "The requested resource was not found, or a disallowed method was used.",
+            "reference": "https://developer.abnamro.com/overview",
+            "traceId": "aa79f41e-ba03-4089-abf0-6113fddc924f",
+            "status": 404,
+            "category": "NOT_FOUND"}]}
+          schema:
+            $ref: "#/definitions/Message"
+        "500":
+          description: Internal Server Error
+          examples: 
+            applications/json: {"errors": [ {
+             "code": "MESSAGE_BAI560_0005",
+             "message": "A technical error has occurred. Please try again later. Please report the following code when contacting us: MESSAGE_BAI560_0005",
+             "reference": "https://developer.abnamro.com/api/account-information/technical-details",
+             "traceId": "114b1652-e499-45b4-8328-0dc41fb266f5",
+             "status": 500,
+             "category": "BACKEND_ERROR"}]}
+          schema:
+            $ref: "#/definitions/Message" 
+      security:
+           - PSD2_Oauth_ClientCredentials: 
+              - psd2:payment:xborder:write
+
+  "/xborder/{transactionId}":
+    put:
+      description: "This operation will initiate processing of a registered non-SEPA payment at the bank for further processing. Authorization by the account holder is needed through consent to obtain a access token. The TransactionId is received as response of the POST Payments."
+      produces:
+        - application/json
+      parameters:
+        - name: transactionId
+          in: path
+          description: "Transaction id (returned in response from POST) for which the status is to be retrieved"
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Access token to be passed as a Bearer token. 
+          required: true
+          type: string
+        - name: API-Key
+          in: header
+          description: Consumer key obtained after app registration on developer portal.
+          required: true
+          type: string 
+
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/TransactionStatusResponse"
+        "400":
+          description: Bad request/parameter error
+          examples:
+            applications/json: {"errors": [ {
+              "code" : "ERR_1100_004", 
+              "message" : "One of the input paramater is invalid.",
+              "reference" : "https://developer.abnamro.com/get-started#authentication", 
+              "traceId" : "5d47e7b5-55b8-4b9f-b438-51ed01f92f3a",
+              "status" : 400, "category" : "BAD_REQUEST"}]}
+          schema:
+            $ref: "#/definitions/Message"
+        "401":
+          description: Unauthorised
+          examples: 
+            applications/json: {"errors": [ {
+             "code" : "ERR_2002_002", 
+             "message" : "The presented access token is not valid or expired.",
+             "reference" : "https://developer.abnamro.com/get-started#authentication",
+             "traceId" : "36fa4309-fd51-4e6c-b8bc-9e1843b47cf8", 
+             "status" : 401, 
+             "category" : "INVALID_ACCESS_TOKEN"}]}
+          schema:
+            $ref: "#/definitions/Message" 
+        "403":
+          description: Access Forbidden
+          examples: 
+            applications/json: {"errors": [ {"code" : "ERR_3002_003",
+             "message" : "Insufficient scope of the token",
+             "reference" : "https://developer.abnamro.com/api/account-information/technical-details",
+             "traceId" : "c8e372a2-5968-446c-8562-d432cf5722b1",
+             "status" : 403, 
+             "category" : "INSUFFICIENT_SCOPE"}]}
+          schema:
+            $ref: "#/definitions/Message"
+        "404":
+          description: Not found (account number not found)
+          examples: 
+            applications/json: {"errors": [ {"code": "ERR_4001_001",
+            "message": "The requested resource was not found, or a disallowed method was used.",
+            "reference": "https://developer.abnamro.com/overview",
+            "traceId": "aa79f41e-ba03-4089-abf0-6113fddc924f",
+            "status": 404,
+            "category": "NOT_FOUND"}]}
+          schema:
+            $ref: "#/definitions/Message"
+        "500":
+          description: Internal Server Error
+          examples: 
+            applications/json: {"errors": [ {
+             "code": "MESSAGE_BAI560_0005",
+             "message": "A technical error has occurred. Please try again later. Please report the following code when contacting us: MESSAGE_BAI560_0005",
+             "reference": "https://developer.abnamro.com/api/account-information/technical-details",
+             "traceId": "114b1652-e499-45b4-8328-0dc41fb266f5",
+             "status": 500,
+             "category": "BACKEND_ERROR"}]}
+          schema:
+            $ref: "#/definitions/Message" 
+
+      security:
+           - PSD2_Oauth_AuthorizationCode: 
+              - psd2:payment:sepa:write  
+
+definitions:
+
+  TransactionStatusResponse: 
+    type: object
+    required:
+      - transactionId
+      - status
+    properties:
+      accountNumber:
+        description: "The accountnumber in IBAN format of the registered transaction"
+        type: string
+        example: "NL12ABNA9999876523"
+      transactionId:
+        description: "Unique Transaction id also known as accountServicerReference"
+        type: string
+        example: "8325P3346070108S0PD"
+      status:
+        description: "The status of the transaction."
+        type: string
+        enum:
+          - STORED
+          - AUTHORIZED
+          - FUTURE
+          - INPROGRESS
+          - SCHEDULED
+          - EXECUTED
+          - REJECTED
+          - UNKNOWN
+        
+        
+  SepaPayment:
+    type: object
+    required:
+      - counterpartyAccountNumber
+      - counterpartyName
+      - amount
+    properties:
+      initiatingpartyAccountNumber:
+        type: string
+        description:  The account number in IBAN format of the ordering party, initiating the transaction, if omitted the account number will be selected during the authorization of the payment. Also the account number can be changed by the account holder during the authorization of the payment.
+        maxLength: 34
+        example: "NL62ABNA9999841479"
+      counterpartyAccountNumber:
+        description: The account number in IBAN format of the counterparty. 
+        type: string
+        maxLength: 34
+        example: "NL12ABNA9999876523"
+      counterpartyName:
+        description: The name of the counterparty
+        type: string
+        maxLength: 70
+        example: "John Doe"
+      amount:
+        description: The amount of the transaction always positive
+        type: number
+        format: float
+        minimum: 0.01
+        example: 100.01
+      requestedExecutionDate:
+        description: "An optional date on which the initiated payment is to be executed. If the executiondate is in the past, or if the requested execution date is empty, then the payment will be executed immediately. This date should be no more than 364 days after the current date. The format of the date is a ISO8601 full-date conforming to RFC 3339, (CCYY-MM-DD). When there is no clearing of payments on the execution date it will be processed first available bookdate. " 
+        type: string
+        format: date
+        example: "2019-01-30"
+      currency:
+        description: The currency of the transaction, only EUR allowed. If omitted EUR is assumed
+        type: string
+        enum:
+          - EUR
+      remittanceInfo:
+        description: Information for the beneficiary about the payment
+        type: string
+        maxLength: 140
+        example: Payment of invoice nr 12345/01
+      structuredRemittanceInfo:
+        description: Specifies the Structured Remittance Information. (Description of the transaction part)
+        type: object
+        required:
+        - issuer
+        - reference
+        properties:
+          issuer:
+            description: "Type if issuer: ISO = ISO Payment Reference; BBA = Belgium Payment Reference; CUR = Dutch Payment Reference"
+            type: string
+            enum:
+              - ISO
+              - BBA
+              - CUR  
+            example: "CUR"
+          reference:
+            description: The structured remittance information
+            type: string
+            maxLength: 35
+            example: "5000056789012345"
+        
+  XBorderPayment:
+    type: object
+    required:
+      - counterParty
+      - amount
+      - currency
+    properties:
+      initiatingParty:
+        type: object
+        required:
+          - accountNumber
+        example: "NL62ABNA9999841479"
+        properties:
+          accountNumber:
+            type: string
+            description: The IBAN account number of the ordering party, initiating the transaction
+            maxLength: 34
+          accountCurrency:
+            type: string
+            description: Currency of the accountNumber, 3 characters ISO 4217 currency code (e.g. EUR or USD). If not provided, the currency of the amount is assumed as the currency of the initiating account.
+            minLength: 3
+            maxLength: 3 
+            example: "USD"
+      counterParty:
+        type: object
+        required:
+          - name
+          - accountNumberType
+          - accountNumber
+          - bankIdentifierType
+          - bankIdentifier
+        properties:
+          name:
+            type: string
+            description: The name of the counterparty
+            maxLength: 70
+            example: "John Doe"
+          accountNumberType:
+            type: string
+            description:  Indicator of the type of accountnumber being used, either IBAN or BBAN (latter for clearings where IBAN format is not supported)
+            enum:
+              - IBAN
+              - BBAN
+          accountNumber:
+            type: string
+            description: The IBAN or BBAN formatted account number of the counterparty as indicated by accountNumberType.
+            maxLength: 34
+            example: "NL12ABNA9999876523"
+          bankIdentifierType:
+            type: string
+            description: Indicator signifying the type of bankIdentifier used; SWIFTBIC (for a BIC); UKSORTCODE (for a UK sortcode); FEDWIRE (for a US bankcode) 
+            enum:
+              - SWIFTBIC
+              - UKSORTCODE
+              - FEDWIRE
+          bankIdentifier:
+            type: string
+            description: Specify the BankIdentifier here for the selected bankIdentifierType
+            example: "ABNANL2A"
+      amount:
+        description: "The amount of the transaction always positive, the number of decimals used should match the used currency"
+        type: number
+        format: double
+        minimum: 0.001
+        example: 100.01
+      currency:
+        description: "Currency of the amount, 3 characters alphabetic ISO 4217 currency code"
+        pattern: "[A-Z]"
+        type: string
+        example: "USD"
+        minLength: 3
+        maxLength: 3 
+      chargesBearer:
+        type: string
+        description: Indicator who pays the charges related to the payment BEN = beneficiary, OUR = initiating party, SHA both parties share the charges. If not specified, SHA is assumed. Note in EMU always use SHA 
+        enum:
+          - SHA
+          - BEN
+          - OUR
+      requestedExecutionDate:
+        description: "An optional date on which the initiated payment is to be executed. If the executiondate is in the past, or if the requested execution date is empty, then the payment will be executed immediately. This date should be no more than 364 days after the current date. The format of the date is a ISO8601 full-date conforming to RFC 3339, (CCYY-MM-DD). When there is no clearing of payments on the execution date it will be processed first available bookdate. " 
+        type: string
+        format: date
+        example: "2019-01-30"
+      remittanceInfo:
+        type: string
+        description: "Specifies the Remittance Information. (Description of the transaction part)"
+        maxLength: 140
+        example: Payment of invoice 9876-1
+  Message:
+    type: object
+    title: message
+    description : Response object in case of error
+    properties:
+      errors:
+       type: array
+       items:
+        required:
+          - code
+          - message
+          - reference
+          - traceId
+          - status
+          - category
+        properties:
+         code:
+          description: The unique error code key
+          type: string
+         message:
+          description: Understandable description for the error code key
+          type: string
+         traceId:
+          description: The unique trace id sent for this request
+          type: string
+         status:
+          description: The http code of the error
+          type: integer
+          format: int32
+         reference:
+          description: Reference where to find more information on error
+          type: string
+         category: 
+          description: Category of error
+          type: string
+
+securityDefinitions:
+  PSD2_Oauth_AuthorizationCode:
+    type: oauth2
+    flow: accessCode
+    tokenUrl: "https://auth-sandbox.connect.abnamro.com/as/token.oauth2"
+    scopes:
+      "psd2:payment:sepa:write": To release a SEPA payment after authorization by the account holder. You get this scope through consent from the account holder 
+      "psd2:payment:sepa:read": To request the status of a SEPA payment. You get this scope through consent from the account holder
+      "psd2:payment:xborder:write": To release a xborder payment after authorization by the account holder. You get this scope through consent from the account holder
+    
+  PSD2_Oauth_ClientCredentials:
+    type: oauth2
+    flow: application
+    tokenUrl: "https://auth-sandbox.connect.abnamro.com/as/token.oauth2"
+    scopes:
+      "psd2:payment:sepa:write": To register a SEPA payment
+      "psd2:payment:xborder:write": To register a xborder payment
