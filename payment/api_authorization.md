@@ -11,7 +11,16 @@ There are two OAuth flows in use:
 - Authorization Code
 
 #### Client Credentials
-In this flow OAuth is used for direct access to an API. As third party payment service provider (TPP) you use this method to get an access token for registration of a payment. When requesting an access token you can identify yourself as a client using an EIDAS SSL Certificate. As response an access token is returned that can be used to access API's for which you have authorization. For security reasons the validity of this token is temporary. The sequence diagram in the authorization code section illustrates how client credentials are used in the context of getting access to an ABN AMRO account.
+
+In this flow OAuth is used for direct access to an API.
+As third party payment service provider (TPP) you use this method to get an access token for registration of a payment. 
+
+When requesting an access token you can identify yourself as a client using an EIDAS SSL Certificate.
+As response an access token is returned that can be used to access API's for which you have authorization.
+
+For security reasons the validity of this token is temporary.
+
+The sequence diagram in the authorization code section illustrates how client credentials are used in the context of getting access to an ABN AMRO account.
 
 #### Authorization code
 In this flow, OAuth is used in a TPP role to access accounts of ABN AMRO clients. ABN AMRO clients need to provide consent to you as a TPP before the account can accessed.
