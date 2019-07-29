@@ -6,6 +6,7 @@ Documentation is crucial for the development and maintenance of applications usi
 API documentation is traditionally found in documentation files but can also be found in social media such as blogs, forums, and Q&A websites.
 
 Traditional documentation files are often presented via a documentation system, such as [Markdown](https://en.wikipedia.org/wiki/Markdown "Link to Wikipedia").
+
 The types of content included in the documentation differs from API to API.
 
 In the interest of clarity, API documentation may include a description of classes and methods in the API as well as typical usage scenarios, code snippets and design rationales.
