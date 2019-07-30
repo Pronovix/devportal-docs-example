@@ -8,7 +8,9 @@ info:
     # Overview
 
     Perform foreign exchange transactions, obtain indicative rates, and retrieve
-    trades performed. The API provides the ability to retrieve a quote and/or
+    trades performed.
+    
+    The API provides the ability to retrieve a quote and/or
     place an order for an FX spot and outright (Today, Tomorrow and ASAP).
 
     ## Introduction
