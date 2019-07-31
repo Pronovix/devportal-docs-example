@@ -180,7 +180,8 @@ info:
     and test your code against all possible outcomes and HTTP status codes.
 
     Quotes stay tradable for 90 seconds, which is substantially longer than
-    production. Quotes and orders created in the sandbox environment will be purged
+    production.
+    Quotes and orders created in the sandbox environment will be purged
     after 14 days or when the number exceeds 5000.
 
     ## Access
@@ -190,7 +191,9 @@ info:
     [https://api-sandbox.abnamro.com](https://api-sandbox.abnamro.com).
 
     For ease of use, we provide a private/public key pair that can be used to get an
-    access token from the authentication endpoint. The private/public key can be
+    access token from the authentication endpoint.
+  
+    The private/public key can be
     used for other API products in sandbox as well and represents the method of how
     to obtain an access token in production.
 
